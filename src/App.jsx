@@ -455,7 +455,7 @@ export default function App() {
                   {/* Main Store Title with Sliding Light Reflection ("animacoes com um reflexo o texto principal") */}
                   <h1 className="hero-title-headline text-6xl sm:text-7xl lg:text-8xl font-black uppercase tracking-tight leading-[0.95] mb-5 drop-shadow-2xl">
                     <span className="text-shimmer-white inline-block">ALBARRAP</span> <br />
-                    <span className="font-rounded-modern font-bold text-shimmer-amber block text-2xl sm:text-4xl lg:text-5xl mt-2 tracking-wider uppercase">
+                    <span className="font-rounded-modern font-bold text-shimmer-white block text-2xl sm:text-4xl lg:text-5xl mt-2 tracking-wider uppercase">
                       Camisetas Personalizadas
                     </span>
                   </h1>
