@@ -1,11 +1,12 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   ShoppingBag, Heart, Search, Star, Check, ArrowRight, ShieldCheck, 
   Truck, RefreshCw, Sparkles, X, Plus, Minus, Tag, CreditCard, 
   QrCode, FileText, ChevronRight, Sliders, Ruler, MessageCircle, 
   Info, Eye, Share2, Layers, HelpCircle, ChevronDown, CheckCircle2,
-  Award, Feather, Compass, ArrowLeft, ArrowUpRight
+  Award, Feather, Compass, ArrowLeft, ArrowUpRight, Volume2, VolumeX,
+  Play, Pause
 } from 'lucide-react';
 import { PRODUCTS, CATEGORIES, REVIEWS, STORE_CONFIG, generateWhatsAppLink } from './data/products';
 
@@ -14,6 +15,57 @@ export default function App() {
   const [selectedCategory, setSelectedCategory] = useState('todas');
   const [searchQuery, setSearchQuery] = useState('');
   const [sortBy, setSortBy] = useState('popular');
+
+  // Video Reels States (3 Reels: Muted by default for Autoplay compliance, toggleable by button)
+  const [reelsMuted, setReelsMuted] = useState([true, true, true]);
+  const [reelsPlaying, setReelsPlaying] = useState([true, true, true]);
+  const [reelsLikes, setReelsLikes] = useState([1420, 980, 2150]);
+  const [reelsLiked, setReelsLiked] = useState([false, false, false]);
+
+  const videoRefs = [useRef(null), useRef(null), useRef(null)];
+
+  const toggleReelMute = (index) => {
+    setReelsMuted(prev => {
+      const copy = [...prev];
+      const newMutedState = !copy[index];
+      copy[index] = newMutedState;
+      if (videoRefs[index].current) {
+        videoRefs[index].current.muted = newMutedState;
+      }
+      addToast(newMutedState ? 'Áudio desativado 🔇' : 'Áudio ativado 🔊');
+      return copy;
+    });
+  };
+
+  const toggleReelPlay = (index) => {
+    const video = videoRefs[index].current;
+    if (video) {
+      if (video.paused) {
+        video.play();
+        setReelsPlaying(prev => { const copy = [...prev]; copy[index] = true; return copy; });
+      } else {
+        video.pause();
+        setReelsPlaying(prev => { const copy = [...prev]; copy[index] = false; return copy; });
+      }
+    }
+  };
+
+  const toggleReelLike = (index) => {
+    setReelsLiked(prev => {
+      const copy = [...prev];
+      const isCurrentlyLiked = copy[index];
+      copy[index] = !isCurrentlyLiked;
+
+      setReelsLikes(prevLikes => {
+        const copyLikes = [...prevLikes];
+        copyLikes[index] += isCurrentlyLiked ? -1 : 1;
+        return copyLikes;
+      });
+
+      addToast(!isCurrentlyLiked ? 'Você curtiu o Reel! ❤️' : 'Descurtido');
+      return copy;
+    });
+  };
 
   // Scroll Listener for Dynamic Glass Navbar Position Switch
   const [scrollPassedHero, setScrollPassedHero] = useState(false);
@@ -596,6 +648,199 @@ export default function App() {
                 </div>
               </div>
 
+            </div>
+
+          </div>
+        </motion.section>
+
+        {/* =================================================================== */}
+        {/* 3. INSTAGRAM REELS SHOWCASE (3 VÍDEOS AUTOPLAY COM BOTÃO DE ÁUDIO) */}
+        {/* =================================================================== */}
+        <motion.section
+          id="reels"
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.8 }}
+          className="py-16 px-4 bg-[#0A192F] text-white relative overflow-hidden border-t border-b border-white/10"
+        >
+          {/* Background Ambient Orbs */}
+          <div className="absolute top-1/2 left-10 w-96 h-96 bg-blue-600/15 rounded-full blur-3xl pointer-events-none orb-float-1" />
+          <div className="absolute bottom-10 right-10 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none orb-float-2" />
+
+          <div className="max-w-7xl mx-auto relative z-10">
+            
+            {/* Header */}
+            <div className="text-center max-w-2xl mx-auto mb-12">
+              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-400/20 to-emerald-400/20 text-amber-300 text-xs font-black px-4 py-1.5 rounded-full uppercase tracking-widest mb-3 border border-amber-400/30 backdrop-blur-md">
+                <Instagram size={16} className="text-amber-300" />
+                <span>EXPERIÊNCIA REAL • REELS @CAMISETAS_ALBARRAP</span>
+              </div>
+              <h2 className="hero-title-headline text-3xl sm:text-5xl font-black uppercase text-white tracking-tight">
+                Bastidores & Caimento no Corpo
+              </h2>
+              <p className="text-slate-300 text-sm mt-3 leading-relaxed">
+                Confira a textura da malha, o caimento da gola ribana e o acabamento das peças em ação. Toque no botão de áudio de cada vídeo para ouvir o som!
+              </p>
+            </div>
+
+            {/* 3 Reels Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+              {[
+                {
+                  id: 0,
+                  src: '/videos/albarrap_reel_1.mp4',
+                  tag: 'Oversized Boxy 260g',
+                  title: 'Caimento Impecável no Corpo',
+                  subtitle: 'Confecção Própria • Vilhena - RO',
+                  product: PRODUCTS[0]
+                },
+                {
+                  id: 1,
+                  src: '/videos/albarrap_reel_2.mp4',
+                  tag: 'Detalhe da Ribana 3.0cm',
+                  title: 'Gola Encorpada & Zero Esgarçamento',
+                  subtitle: 'Algodão Penteado Premium',
+                  product: PRODUCTS[1]
+                },
+                {
+                  id: 2,
+                  src: '/videos/albarrap_reel_3.mp4',
+                  tag: 'Coleção Exclusiva HD',
+                  title: 'Estampa Conceitual em Silk',
+                  subtitle: 'Disponível no Atacado e Varejo',
+                  product: PRODUCTS[2]
+                }
+              ].map(reel => (
+                <motion.div
+                  key={reel.id}
+                  whileHover={{ y: -8 }}
+                  transition={{ duration: 0.3 }}
+                  className="relative aspect-[9/16] rounded-3xl overflow-hidden glass-pill shadow-2xl border border-white/20 bg-slate-950 group flex flex-col justify-between"
+                >
+                  {/* Video Player */}
+                  <video
+                    ref={videoRefs[reel.id]}
+                    src={reel.src}
+                    autoPlay
+                    muted={reelsMuted[reel.id]}
+                    loop
+                    playsInline
+                    preload="auto"
+                    onClick={() => toggleReelPlay(reel.id)}
+                    className="absolute inset-0 w-full h-full object-cover cursor-pointer z-0"
+                  />
+
+                  {/* Top Overlay Header */}
+                  <div className="relative z-10 p-4 flex items-center justify-between bg-gradient-to-b from-black/80 via-black/30 to-transparent">
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-amber-400 to-emerald-500 p-0.5 shadow-md">
+                        <div className="w-full h-full rounded-full bg-slate-950 flex items-center justify-center text-[10px] font-black text-amber-300">
+                          A
+                        </div>
+                      </div>
+                      <div>
+                        <span className="text-white text-xs font-bold block leading-tight">@camisetas_albarrap</span>
+                        <span className="text-amber-300 text-[9px] font-extrabold uppercase tracking-widest block">{reel.tag}</span>
+                      </div>
+                    </div>
+
+                    {/* Sound Toggle Button (Tap to enable/disable sound) */}
+                    <motion.button
+                      whileHover={{ scale: 1.15 }}
+                      whileTap={{ scale: 0.9 }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleReelMute(reel.id);
+                      }}
+                      className="p-2.5 rounded-full bg-black/70 backdrop-blur-md text-white border border-white/25 hover:bg-black transition flex items-center justify-center shadow-2xl"
+                      title={reelsMuted[reel.id] ? "Ativar Áudio" : "Desativar Áudio"}
+                    >
+                      {reelsMuted[reel.id] ? (
+                        <VolumeX size={18} className="text-amber-300" />
+                      ) : (
+                        <Volume2 size={18} className="text-emerald-400 animate-pulse" />
+                      )}
+                    </motion.button>
+                  </div>
+
+                  {/* Play/Pause Central Play Indicator Overlay */}
+                  {!reelsPlaying[reel.id] && (
+                    <div 
+                      onClick={() => toggleReelPlay(reel.id)}
+                      className="absolute inset-0 z-10 flex items-center justify-center bg-black/40 backdrop-blur-xs cursor-pointer"
+                    >
+                      <div className="p-4 rounded-full bg-white/20 border border-white/30 text-white backdrop-blur-md">
+                        <Play size={32} className="ml-1 fill-white" />
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Right Side Column Actions (Like & Share) */}
+                  <div className="absolute right-3 bottom-24 z-10 flex flex-col items-center gap-3">
+                    <motion.button
+                      whileTap={{ scale: 1.3 }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleReelLike(reel.id);
+                      }}
+                      className={`p-3 rounded-full backdrop-blur-md transition border border-white/20 shadow-xl ${
+                        reelsLiked[reel.id] ? 'bg-red-500 text-white' : 'bg-black/60 text-white hover:bg-black'
+                      }`}
+                    >
+                      <Heart size={20} className={reelsLiked[reel.id] ? 'fill-white' : ''} />
+                    </motion.button>
+                    <span className="text-[10px] font-black text-white drop-shadow-md">
+                      {reelsLikes[reel.id]}
+                    </span>
+
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        addToast('Link do Reel copiado para compartilhar!');
+                      }}
+                      className="p-3 rounded-full bg-black/60 backdrop-blur-md text-white border border-white/20 hover:bg-black transition shadow-xl"
+                    >
+                      <Share2 size={18} />
+                    </button>
+                  </div>
+
+                  {/* Bottom Info & Direct CTA */}
+                  <div className="relative z-10 p-5 bg-gradient-to-t from-black/90 via-black/60 to-transparent">
+                    <h3 className="font-serif-classic font-bold text-lg text-white leading-snug mb-1 drop-shadow-md">
+                      {reel.title}
+                    </h3>
+                    <p className="text-slate-300 text-xs mb-3 line-clamp-1">
+                      {reel.subtitle}
+                    </p>
+
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleAddToCart(reel.product);
+                        }}
+                        className="btn-shine-sweep flex-1 py-2.5 bg-white text-[#0A192F] font-black text-[11px] uppercase tracking-wider rounded-xl hover:bg-slate-200 transition shadow-lg flex items-center justify-center gap-1.5"
+                      >
+                        <ShoppingBag size={14} />
+                        <span>Comprar Peça</span>
+                      </button>
+
+                      <a
+                        href={generateWhatsAppLink([{ name: reel.product.name, price: reel.product.price, quantity: 1 }], reel.product.price, customerData, 'Reels Direct')}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                        className="p-2.5 bg-emerald-500 hover:bg-emerald-400 text-white rounded-xl transition shadow-lg flex items-center justify-center"
+                        title="Comprar pelo WhatsApp"
+                      >
+                        <MessageCircle size={16} />
+                      </a>
+                    </div>
+                  </div>
+
+                </motion.div>
+              ))}
             </div>
 
           </div>
