@@ -1,0 +1,190 @@
+/* ==========================================================================
+   NAVY & CO. | CLASSIC VINTAGE-MODERN GLASSMORPHISM DESIGN SYSTEM
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap');
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom Minimal Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+}
+::-webkit-scrollbar-track {
+  background: #FDFBF7;
+}
+::-webkit-scrollbar-thumb {
+  background: #0A192F;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #1A365D;
+}
+
+/* Font Anti-Aliasing & Smooth High Definition Text Rendering */
+body, h1, h2, h3, h4, button, input, p, span, nav {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Classic & Modern Rounded Typography Utilities */
+.font-serif-classic, .font-rounded-modern {
+  font-family: 'Outfit', 'Urbanist', 'Plus Jakarta Sans', sans-serif;
+  letter-spacing: -0.02em;
+}
+
+.hero-title-headline {
+  font-family: 'Outfit', 'Urbanist', 'Plus Jakarta Sans', sans-serif;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  text-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.4));
+}
+
+/* Glassmorphism Surface Tokens */
+.glass-pill {
+  background: rgba(10, 25, 47, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+}
+
+.glass-pill-light {
+  background: rgba(253, 251, 247, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(10, 25, 47, 0.12);
+  box-shadow: 0 16px 40px rgba(10, 25, 47, 0.08);
+}
+
+.glass-hero-panel {
+  background: rgba(10, 25, 47, 0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+  border-radius: 28px;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(10, 25, 47, 0.08);
+  box-shadow: 0 10px 30px rgba(10, 25, 47, 0.05);
+  border-radius: 20px;
+}
+
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(10, 25, 47, 0.25);
+  box-shadow: 0 20px 40px rgba(10, 25, 47, 0.12);
+}
+
+/* Full Bleed Hero Stage */
+.hero-fullbleed-stage {
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+/* ==========================================================================
+   ADVANCED SHIMMER, REFLECTION & LUXURY ANIMATIONS
+   ========================================================================== */
+
+/* Metallic Light Reflection Sliding across Text */
+@keyframes textReflectionSweep {
+  0% {
+    background-position: -200% 0;
+  }
+  50% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.text-shimmer-white {
+  background: linear-gradient(
+    110deg,
+    #FFFFFF 0%,
+    #FFFFFF 35%,
+    #BAE6FD 45%,
+    #FFFFFF 55%,
+    #FFFFFF 100%
+  );
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textReflectionSweep 4.5s ease-in-out infinite;
+}
+
+.text-shimmer-amber {
+  background: linear-gradient(
+    110deg,
+    #F59E0B 0%,
+    #FCD34D 30%,
+    #FFFBEB 45%,
+    #FBBF24 60%,
+    #D97706 100%
+  );
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textReflectionSweep 3.8s ease-in-out infinite;
+}
+
+/* Button Metallic Shine Sweep on Hover */
+.btn-shine-sweep {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-shine-sweep::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 40%;
+  height: 200%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  transform: rotate(25deg);
+  transition: all 0.75s ease;
+}
+
+.btn-shine-sweep:hover::after {
+  left: 140%;
+}
+
+/* Floating Light Ambient Background Orbs */
+@keyframes orbFloat {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.25;
+  }
+  50% {
+    transform: translateY(-20px) scale(1.08);
+    opacity: 0.45;
+  }
+}
+
+.orb-float-1 {
+  animation: orbFloat 8s ease-in-out infinite;
+}
+
+.orb-float-2 {
+  animation: orbFloat 11s ease-in-out infinite 2s;
+}
