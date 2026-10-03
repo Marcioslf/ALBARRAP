@@ -22,29 +22,28 @@ export const CATEGORIES = [
 
 export const PRODUCTS = [
   {
-    id: 'albarrap-1',
-    name: 'Camiseta D.O.R.A.M.A. Definition',
-    subtitle: 'Confecção Própria | Algodão Penteado 100%',
-    category: 'oversized',
-    categoryName: 'Oversized Boxy',
-    price: 99.90,
-    oldPrice: 129.90,
-    rating: 5.0,
-    reviewsCount: 184,
+    id: 'albarrap-2',
+    name: 'Camiseta Dabbing Santa "Falla 8"',
+    subtitle: 'Edição Especial | Estampa Exclusiva',
+    category: 'personalizadas',
+    categoryName: 'Camisetas Personalizadas',
+    price: 89.90,
+    oldPrice: 119.90,
+    rating: 4.9,
+    reviewsCount: 128,
     badge: 'Mais Vendida',
-    image: '/albarrap_dorama.png',
-    heroModelImage: '/gen_hero_dorama.jpg',
-    material: '100% Algodão Penteado Premium com estampa tipográfica em Silk HD',
-    grammage: '220g/m²',
-    collar: 'Gola Ribana 2.5cm encorpada anti-esgarçamento',
-    fit: 'Oversized / Regular Fit',
+    image: '/albarrap_falla8_model.png',
+    heroModelImage: '/gen_hero_falla8.jpg',
+    material: '100% Algodão com Silk Screen de Alta Definição',
+    grammage: '200g/m²',
+    collar: 'Gola Ribana reforçada ombro a ombro',
+    fit: 'Unissex Confortável',
     colors: [
-      { id: 'navy', name: 'Azul Marinho / Dark Navy', hex: '#0A192F', image: '/albarrap_dorama.png' },
-      { id: 'black', name: 'Preto Obsidian', hex: '#111827', image: '/albarrap_falla8.png' },
-      { id: 'white', name: 'Branco Neve', hex: '#FFFFFF', image: '/albarrap_merry_christmas.png' }
+      { id: 'black', name: 'Preto', hex: '#111827', image: '/albarrap_falla8_model.png' },
+      { id: 'white', name: 'Branco', hex: '#FFFFFF', image: '/albarrap_merry_christmas.png' }
     ],
     sizes: ['P', 'M', 'G', 'GG', 'XGG'],
-    description: 'Estampa conceitual exclusiva com a definição oficial de Dorama. Tecido de confecção própria com algodão macio, caimento estruturado e alta resistência de lavagem. Ideal para atacado e varejo.'
+    description: 'Camiseta divertida e estilosa com estampa dabbing Santa "Falla 8". Confeccionada na matriz em Vilhena-RO para vendas online e presencial.'
   },
   {
     id: 'albarrap-2',
@@ -127,8 +126,8 @@ export const REVIEWS = [
     avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
     rating: 5,
     date: 'Há 2 dias',
-    sizeBought: 'Comprou Camiseta D.O.R.A.M.A. (Tam M)',
-    comment: 'A qualidade da camiseta é surpreendente! O algodão é super macio, a gola não esgarça e a estampa do Dorama ficou perfeita. Entrega super rápida em Vilhena!'
+    sizeBought: 'Comprou Dabbing Santa Falla 8 (Tam M)',
+    comment: 'A qualidade da camiseta é surpreendente! O algodão é super macio, a gola não esgarça e o silk ficou perfeito. Entrega super rápida em Vilhena!'
   },
   {
     id: 'rev-2',
